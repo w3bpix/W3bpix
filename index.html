@@ -16,7 +16,6 @@
             height: 100vh;
             margin: 0;
             text-shadow: 0 0 5px #00ff41;
-            overflow: hidden;
         }
         #terminal {
             width: 90%;
@@ -38,17 +37,12 @@
             display: inline-block;
             transition: all 0.1s;
             font-weight: bold;
-            position: relative;
         }
-        /* Glitch effect op hover */
         a:hover {
             background-color: #00ff41;
             color: #0a0a0a;
             box-shadow: 0 0 20px #00ff41;
             transform: skew(-5deg);
-        }
-        a:active {
-            transform: scale(0.95);
         }
         .cursor {
             display: inline-block;
@@ -69,3 +63,37 @@
         <div class="links" id="links">
             <a href="https://www.linkedin.com/in/rubenkuijsters/" target="_blank">> LINKEDIN</a>
             <a href="https://x.com/w3bpix" target="_blank">> X (TWITTER)</a>
+            <a href="mailto:ruben@w3bpix.nl">> CONTACT</a>
+        </div>
+    </div>
+
+    <script>
+        // De tekst die getypt moet worden
+        const message = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nYou can contact him for communications or any Web3 activities.\n\nRebel. Verified. \n\n> Accessing encrypted links...";
+        
+        let index = 0;
+        const speed = 40;
+
+        function startTyping() {
+            const textElement = document.getElementById("text");
+            const linksElement = document.getElementById("links");
+            const cursorElement = document.getElementById("cursor");
+
+            if (index < message.length) {
+                textElement.textContent += message.charAt(index);
+                index++;
+                setTimeout(startTyping, speed);
+            } else {
+                // Klaar met typen
+                linksElement.style.display = "block";
+                cursorElement.style.display = "none";
+            }
+        }
+
+        // Wacht tot de hele pagina geladen is voordat we beginnen
+        window.onload = function() {
+            setTimeout(startTyping, 1000);
+        };
+    </script>
+</body>
+</html>
