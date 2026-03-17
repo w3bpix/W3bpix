@@ -19,7 +19,26 @@
         .quiz-section { margin-top: 20px; }
         input { background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 10px; font-family: monospace; width: 100%; box-sizing: border-box; margin-bottom: 15px; outline: none; font-size: 1rem; }
         
-        .unlock-btn { display: none; background: #00ff41; color: #0a0a0a; padding: 15px; font-weight: bold; text-align: center; margin-top: 20px; box-shadow: 0 0 15px #00ff41; cursor: pointer; text-decoration: none; display: none; width: 100%; box-sizing: border-box; font-family: inherit; font-size: 1.1rem; }
+        /* De gefixte knop-stijl */
+        .unlock-btn { 
+            display: none; 
+            background: #00ff41; 
+            color: #0a0a0a; 
+            padding: 20px; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-top: 20px; 
+            box-shadow: 0 0 20px #00ff41; 
+            cursor: pointer; 
+            text-decoration: none; 
+            width: 100%; 
+            box-sizing: border-box; 
+            font-family: inherit; 
+            font-size: 1.2rem;
+            border: none;
+        }
+        .unlock-btn:hover { background: #ffffff; box-shadow: 0 0 30px #ffffff; }
+
         .success-text { color: yellow; display: none; margin-top: 10px; font-weight: bold; }
         #hint-link { display: none; margin-top: 10px; font-size: 0.9rem; color: #888; }
         
@@ -99,7 +118,7 @@
 
             if (correct1 && correct2 && correct3) {
                 document.getElementById("success-msg").style.display = "block";
-                document.getElementById("mail-link").style.display = "block";
+                document.getElementById("mail-link").style.display = "block"; // Maakt de link zichtbaar
                 document.getElementById("hint-link").style.display = "none";
             } else if (a1.length > 2 || a2.length > 2 || a3.length > 2) {
                 document.getElementById("hint-link").style.display = "block";
