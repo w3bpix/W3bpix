@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>W3BPIX | White Rabbit</title>
     <style>
-        body { background: #0a0a0a; color: #00ff41; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        #terminal { width: 90%; max-width: 600px; font-size: 1.2rem; line-height: 1.6; }
-        .links { margin-top: 20px; display: none; }
-        a { color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 10px; margin-right: 10px; display: inline-block; }
-        a:hover { background: #00ff41; color: #000; }
+        body { background: #0a0a0a; color: #00ff41; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-shadow: 0 0 5px #00ff41; }
+        #terminal { width: 90%; max-width: 650px; font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; }
+        .links { margin-top: 30px; display: none; }
+        a { color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 10px 20px; margin-right: 15px; display: inline-block; font-weight: bold; }
+        a:hover { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
         .cursor { display: inline-block; width: 10px; height: 1.2rem; background: #00ff41; animation: blink 1s infinite; vertical-align: middle; }
         @keyframes blink { 50% { opacity: 0; } }
     </style>
@@ -19,29 +19,21 @@
     <div id="terminal">
         <span id="target"></span><span class="cursor" id="c"></span>
         <div id="l" class="links">
-            <a href="https://www.linkedin.com/in/rubenkuijsters/">> LINKEDIN</a>
-            <a href="https://x.com/w3bpix">> X</a>
+            <a href="https://www.linkedin.com/in/rubenkuijsters/" target="_blank">> LINKEDIN</a>
             <a href="mailto:ruben@w3bpix.nl">> CONTACT</a>
         </div>
     </div>
 
     <script>
-        var msg = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nRebel. Verified.\n\n> Accessing links...";
+        var msg = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nYou can contact him for communications or any Web3 activities.\n\nRebel. Verified.\n\n> Accessing links...";
         var pos = 0;
         
         function type() {
-            document.getElementById("target").innerText += msg.charAt(pos);
-            pos++;
-            if (pos < msg.length) {
-                setTimeout(type, 40);
-            } else {
-                document.getElementById("l").style.display = "block";
-                document.getElementById("c").style.display = "none";
-            }
-        }
-        
-        // Start direct
-        type();
-    </script>
-</body>
-</html>
+            var el = document.getElementById("target");
+            if (el) {
+                el.innerText += msg.charAt(pos);
+                pos++;
+                if (pos < msg.length) {
+                    setTimeout(type, 45);
+                } else {
+                    document.getElementById("l").
