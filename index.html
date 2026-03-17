@@ -5,95 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>W3BPIX | White Rabbit</title>
     <style>
-        body {
-            background-color: #0a0a0a;
-            color: #00ff41;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-shadow: 0 0 5px #00ff41;
-        }
-        #terminal {
-            width: 90%;
-            max-width: 650px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            white-space: pre-wrap;
-        }
-        .links {
-            margin-top: 30px;
-            display: none; 
-        }
-        a {
-            color: #00ff41;
-            text-decoration: none;
-            border: 1px solid #00ff41;
-            padding: 10px 20px;
-            margin: 10px 10px 10px 0;
-            display: inline-block;
-            transition: all 0.1s;
-            font-weight: bold;
-        }
-        a:hover {
-            background-color: #00ff41;
-            color: #0a0a0a;
-            box-shadow: 0 0 20px #00ff41;
-            transform: skew(-5deg);
-        }
-        .cursor {
-            display: inline-block;
-            width: 12px;
-            height: 1.2rem;
-            background-color: #00ff41;
-            animation: blink 1s infinite;
-            vertical-align: middle;
-        }
+        body { background: #0a0a0a; color: #00ff41; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #terminal { width: 90%; max-width: 600px; font-size: 1.2rem; line-height: 1.6; }
+        .links { margin-top: 20px; display: none; }
+        a { color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 10px; margin-right: 10px; display: inline-block; }
+        a:hover { background: #00ff41; color: #000; }
+        .cursor { display: inline-block; width: 10px; height: 1.2rem; background: #00ff41; animation: blink 1s infinite; vertical-align: middle; }
         @keyframes blink { 50% { opacity: 0; } }
     </style>
 </head>
 <body>
 
     <div id="terminal">
-        <span id="text"></span><span class="cursor" id="cursor"></span>
-        
-        <div class="links" id="links">
-            <a href="https://www.linkedin.com/in/rubenkuijsters/" target="_blank">> LINKEDIN</a>
-            <a href="https://x.com/w3bpix" target="_blank">> X (TWITTER)</a>
+        <span id="target"></span><span class="cursor" id="c"></span>
+        <div id="l" class="links">
+            <a href="https://www.linkedin.com/in/rubenkuijsters/">> LINKEDIN</a>
+            <a href="https://x.com/w3bpix">> X</a>
             <a href="mailto:ruben@w3bpix.nl">> CONTACT</a>
         </div>
     </div>
 
     <script>
-        // De tekst die getypt moet worden
-        const message = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nYou can contact him for communications or any Web3 activities.\n\nRebel. Verified. \n\n> Accessing encrypted links...";
+        var msg = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nRebel. Verified.\n\n> Accessing links...";
+        var pos = 0;
         
-        let index = 0;
-        const speed = 40;
-
-        function startTyping() {
-            const textElement = document.getElementById("text");
-            const linksElement = document.getElementById("links");
-            const cursorElement = document.getElementById("cursor");
-
-            if (index < message.length) {
-                textElement.textContent += message.charAt(index);
-                index++;
-                setTimeout(startTyping, speed);
+        function type() {
+            document.getElementById("target").innerText += msg.charAt(pos);
+            pos++;
+            if (pos < msg.length) {
+                setTimeout(type, 40);
             } else {
-                // Klaar met typen
-                linksElement.style.display = "block";
-                cursorElement.style.display = "none";
+                document.getElementById("l").style.display = "block";
+                document.getElementById("c").style.display = "none";
             }
         }
-
-        // Wacht tot de hele pagina geladen is voordat we beginnen
-        window.onload = function() {
-            setTimeout(startTyping, 1000);
-        };
+        
+        // Start direct
+        type();
     </script>
 </body>
 </html>
