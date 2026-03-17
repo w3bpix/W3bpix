@@ -3,39 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>W3BPIX</title>
+    <title>W3BPIX | The Quest</title>
     <style>
-        body { background: #0a0a0a; color: #00ff41; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-shadow: 0 0 5px #00ff41; }
-        #terminal { width: 90%; max-width: 650px; font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; }
-        .links { margin-top: 30px; display: none; }
-        a { color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 10px 20px; margin-right: 15px; display: inline-block; font-weight: bold; }
-        a:hover { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
+        body { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; text-shadow: 0 0 5px #00ff41; overflow-x: hidden; }
+        #terminal { width: 90%; max-width: 650px; font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; padding: 20px; }
+        .hidden-content { display: none; margin-top: 20px; border-top: 1px solid #00ff41; padding-top: 20px; }
+        .video-container { position: relative; padding-bottom: 177%; height: 0; overflow: hidden; margin: 20px auto; border: 1px solid #00ff41; max-width: 300px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .quiz-section { margin-top: 20px; }
+        input { background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 8px; font-family: monospace; width: 100%; box-sizing: border-box; margin-bottom: 15px; outline: none; }
         .cursor { display: inline-block; width: 10px; height: 1.2rem; background: #00ff41; animation: b 1s infinite; vertical-align: middle; }
         @keyframes b { 50% { opacity: 0; } }
+        .unlock-btn { display: none; background: #00ff41; color: #0a0a0a; text-decoration: none; padding: 15px; font-weight: bold; text-align: center; margin-top: 20px; box-shadow: 0 0 15px #00ff41; }
+        .success-text { color: yellow; display: none; margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
     <div id="terminal">
         <span id="t"></span><span class="cursor" id="c"></span>
-        <div id="l" class="links">
-            <a href="https://www.linkedin.com/in/rubenkuijsters/" target="_blank">> LINKEDIN</a>
-            <a href="mailto:ruben@w3bpix.nl">> CONTACT</a>
+        
+        <div id="game-teaser" class="hidden-content">
+            <p style="color: yellow;">[ MISSION: IDENTIFY TARGETS ]</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/DXTiIpTuanM?autoplay=1&mute=1&loop=1&playlist=DXTiIpTuanM" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div class="quiz-section">
+                <label>1. Who is the CEO of Evil Corp (In his mind)?</label>
+                <input type="text" id="q1" placeholder="Enter name..." oninput="checkAnswers()">
+                
+                <label>2. Who is the guy in the hoodie?</label>
+                <input type="text" id="q2" placeholder="Enter name..." oninput="checkAnswers()">
+                
+                <label>3. Who is the leader of the Dark Army?</label>
+                <input type="text" id="q3" placeholder="Enter name..." oninput="checkAnswers()">
+            </div>
+
+            <div id="success-msg" class="success-text">IDENTITY VERIFIED. ENCRYPTION BROKEN.</div>
+            <a id="mail-link" href="mailto:ruben@w3bpix.nl?subject=Next Level Access&body=I verified the targets. What is the next step?" class="unlock-btn">> SEND MAIL FOR NEXT LEVEL</a>
         </div>
     </div>
+
     <script>
-        var message = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nYou can contact him for communications or any Web3 activities.\n\nRebel. Verified.\n\n> Accessing links...";
+        var message = "Hello friend.\n\nEvery day we change the world.\nBut to change it in a way that means anything...\nThat takes time.\n\nSneak peak of the Mr Robot Board Game.\nIdentify the targets to proceed.";
         var i = 0;
+
         function type() {
             if (i < message.length) {
                 document.getElementById("t").textContent += message.charAt(i);
                 i++;
-                setTimeout(type, 40);
+                setTimeout(type, 45);
             } else {
-                document.getElementById("l").style.display = "block";
                 document.getElementById("c").style.display = "none";
+                document.getElementById("game-teaser").style.display = "block";
             }
         }
-        // Start de animatie direct
+
+        function checkAnswers() {
+            var a1 = document.getElementById("q1").value.toLowerCase();
+            var a2 = document.getElementById("q2").value.toLowerCase();
+            var a3 = document.getElementById("q3").value.toLowerCase();
+
+            // Check of de namen kloppen (Tyrell, Elliot, Whiterose)
+            var correct1 = a1.includes("tyrell");
+            var correct2 = a2.includes("elliot");
+            var correct3 = a3.includes("whiterose") || a3.includes("wh1ter0se");
+
+            if (correct1 && correct2 && correct3) {
+                document.getElementById("success-msg").style.display = "block";
+                document.getElementById("mail-link").style.display = "block";
+            }
+        }
+
         type();
     </script>
 </body>
