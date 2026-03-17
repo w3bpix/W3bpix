@@ -8,17 +8,124 @@
         body { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; text-shadow: 0 0 5px #00ff41; overflow-x: hidden; }
         #terminal { width: 90%; max-width: 650px; font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; padding: 20px; }
         
+        /* Contactsectie */
         .links { margin-top: 30px; display: none; }
         .links a { color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 10px 20px; margin-right: 15px; display: inline-block; font-weight: bold; }
         .links a:hover { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
         
+        /* Game Teaser */
         .hidden-content { display: none; margin-top: 30px; border-top: 2px dashed #00ff41; padding-top: 20px; }
         .video-container { position: relative; padding-bottom: 177%; height: 0; overflow: hidden; margin: 20px auto; border: 1px solid #00ff41; max-width: 300px; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         
+        /* Quiz & Inputs */
         .quiz-section { margin-top: 20px; }
-        input { background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 8px; font-family: monospace; width: 100%; box-sizing: border-box; margin-bottom: 15px; outline: none; }
+        input { background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 10px; font-family: monospace; width: 100%; box-sizing: border-box; margin-bottom: 15px; outline: none; font-size: 1rem; }
         
-        .unlock-btn { display: none; background: #00ff41; color: #0a0a0a; padding: 15px; font-weight: bold; text-align: center; margin-top: 20px; box-shadow: 0 0 15px #00ff41; cursor: pointer; border: none; width: 100%; font-family: inherit; }
+        /* Knoppen en Berichten */
+        .unlock-btn { display: none; background: #00ff41; color: #0a0a0a; padding: 15px; font-weight: bold; text-align: center; margin-top: 20px; box-shadow: 0 0 15px #00ff41; cursor: pointer; border: none; width: 100%; font-family: inherit; font-size: 1.1rem; }
         .success-text { color: yellow; display: none; margin-top: 10px; font-weight: bold; }
-        #hint-link { display: none;
+        #hint-link { display: none; margin-top: 10px; font-size: 0.9rem; color: #888; }
+        
+        /* Cursor Animatie */
+        .cursor { display: inline-block; width: 10px; height: 1.2rem; background: #00ff41; animation: b 1s infinite; vertical-align: middle; }
+        @keyframes b { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <span id="t"></span><span class="cursor" id="c"></span>
+        
+        <div id="contact-links" class="links">
+            <a href="https://www.linkedin.com/in/rubenkuijsters/" target="_blank">> LINKEDIN</a>
+            <a href="mailto:ruben@w3bpix.nl">> CONTACT</a>
+        </div>
+
+        <div id="game-teaser" class="hidden-content">
+            <p style="color: yellow;">[ SNEAK PEAK: THE BOARD GAME ]</p>
+            <p>Identify the targets to proceed.</p>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/DXTiIpTuanM?autoplay=0&mute=1&loop=1&playlist=DXTiIpTuanM" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div class="quiz-section">
+                <label>1. Who is the CEO of Evil Corp (In his mind)?</label>
+                <input type="text" id="q1" placeholder="Enter name...">
+                
+                <label>2. Who is the guy in the hoodie?</label>
+                <input type="text" id="q2" placeholder="Enter name...">
+                
+                <label>3. Who is the leader of the Dark Army?</label>
+                <input type="text" id="q3" placeholder="Enter name...">
+            </div>
+
+            <div id="hint-link">
+                <p>Need a hint? <span onclick="forceProceed()" style="text-decoration: underline; cursor: pointer; color: #00ff41;">Bypass encryption...</span></p>
+            </div>
+
+            <div id="success-msg" class="success-text">IDENTITY VERIFIED. ENCRYPTION BROKEN.</div>
+            <button id="mail-link" onclick="sendMail()" class="unlock-btn">> SEND MAIL FOR NEXT LEVEL</button>
+        </div>
+    </div>
+
+    <script>
+        var message = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nYou can contact him for communications or any Web3 activities.\n\nRebel. Verified.\n\n> Loading modules...\n> ------------------";
+        var i = 0;
+
+        function type() {
+            if (i < message.length) {
+                document.getElementById("t").textContent += message.charAt(i);
+                i++;
+                setTimeout(type, 45);
+            } else {
+                document.getElementById("contact-links").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("game-teaser").style.display = "block";
+                    document.getElementById("c").style.display = "none";
+                    
+                    // Koppel de check-functie aan de invulvelden
+                    document.getElementById("q1").oninput = checkAnswers;
+                    document.getElementById("q2").oninput = checkAnswers;
+                    document.getElementById("q3").oninput = checkAnswers;
+                }, 1500);
+            }
+        }
+
+        function checkAnswers() {
+            var a1 = document.getElementById("q1").value.toLowerCase();
+            var a2 = document.getElementById("q2").value.toLowerCase();
+            var a3 = document.getElementById("q3").value.toLowerCase();
+
+            var correct1 = a1.includes("tyrell");
+            var correct2 = a2.includes("elliot");
+            var correct3 = a3.includes("whiterose") || a3.includes("wh1ter0se");
+
+            if (correct1 && correct2 && correct3) {
+                document.getElementById("success-msg").style.display = "block";
+                document.getElementById("mail-link").style.display = "block";
+                document.getElementById("hint-link").style.display = "none";
+            } else if (a1.length > 2 || a2.length > 2 || a3.length > 2) {
+                document.getElementById("hint-link").style.display = "block";
+            }
+        }
+
+        function forceProceed() {
+            document.getElementById("q1").value = "Tyrell Wellick";
+            document.getElementById("q2").value = "Elliot Alderson";
+            document.getElementById("q3").value = "Whiterose";
+            checkAnswers();
+        }
+
+        function sendMail() {
+            var email = "ruben@w3bpix.nl";
+            var subject = "Next Level Access";
+            var body = "I verified the targets. What is the next step?";
+            window.location.href = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        }
+
+        // Start het proces
+        type();
+    </script>
+</body>
+</html>
