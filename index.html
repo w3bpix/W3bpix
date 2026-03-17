@@ -8,23 +8,21 @@
         body { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; text-shadow: 0 0 5px #00ff41; overflow-x: hidden; }
         #terminal { width: 90%; max-width: 650px; font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; padding: 20px; }
         
-        /* Contact Links styling */
         .links { margin-top: 30px; display: none; }
         .links a { color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 10px 20px; margin-right: 15px; display: inline-block; font-weight: bold; }
         .links a:hover { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
         
-        /* Game Teaser styling */
         .hidden-content { display: none; margin-top: 30px; border-top: 2px dashed #00ff41; padding-top: 20px; }
         .video-container { position: relative; padding-bottom: 177%; height: 0; overflow: hidden; margin: 20px auto; border: 1px solid #00ff41; max-width: 300px; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        
         .quiz-section { margin-top: 20px; }
         input { background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 8px; font-family: monospace; width: 100%; box-sizing: border-box; margin-bottom: 15px; outline: none; }
         
-        /* Unlock elements */
         .unlock-btn { display: none; background: #00ff41; color: #0a0a0a; text-decoration: none; padding: 15px; font-weight: bold; text-align: center; margin-top: 20px; box-shadow: 0 0 15px #00ff41; }
         .success-text { color: yellow; display: none; margin-top: 10px; font-weight: bold; }
+        #hint-link { display: none; margin-top: 10px; font-size: 0.9rem; color: #888; }
         
-        /* Cursor styling */
         .cursor { display: inline-block; width: 10px; height: 1.2rem; background: #00ff41; animation: b 1s infinite; vertical-align: middle; }
         @keyframes b { 50% { opacity: 0; } }
     </style>
@@ -57,6 +55,10 @@
                 <input type="text" id="q3" placeholder="Enter name...">
             </div>
 
+            <div id="hint-link">
+                <p>Need a hint? <span onclick="forceProceed()" style="text-decoration: underline; cursor: pointer; color: #00ff41;">Bypass encryption...</span></p>
+            </div>
+
             <div id="success-msg" class="success-text">IDENTITY VERIFIED. ENCRYPTION BROKEN.</div>
             <a id="mail-link" href="mailto:ruben@w3bpix.nl?subject=Next Level Access&body=I verified the targets. What is the next step?" class="unlock-btn">> SEND MAIL FOR NEXT LEVEL</a>
         </div>
@@ -72,15 +74,10 @@
                 i++;
                 setTimeout(type, 45);
             } else {
-                // Klaar met typen: toon eerst je contactgegevens
                 document.getElementById("contact-links").style.display = "block";
-                
-                // Wacht 1.5 seconde en toon dan de game-teaser
                 setTimeout(function() {
                     document.getElementById("game-teaser").style.display = "block";
                     document.getElementById("c").style.display = "none";
-                    
-                    // Activeer de quiz-check pas als de sectie zichtbaar is
                     document.getElementById("q1").oninput = checkAnswers;
                     document.getElementById("q2").oninput = checkAnswers;
                     document.getElementById("q3").oninput = checkAnswers;
@@ -93,7 +90,6 @@
             var a2 = document.getElementById("q2").value.toLowerCase();
             var a3 = document.getElementById("q3").value.toLowerCase();
 
-            // Check of de namen kloppen (Tyrell, Elliot, Whiterose/Wh1ter0se)
             var correct1 = a1.includes("tyrell");
             var correct2 = a2.includes("elliot");
             var correct3 = a3.includes("whiterose") || a3.includes("wh1ter0se");
@@ -101,14 +97,19 @@
             if (correct1 && correct2 && correct3) {
                 document.getElementById("success-msg").style.display = "block";
                 document.getElementById("mail-link").style.display = "block";
-            } else {
-                // Verberg het bericht als een antwoord wordt veranderd
-                document.getElementById("success-msg").style.display = "none";
-                document.getElementById("mail-link").style.display = "none";
+                document.getElementById("hint-link").style.display = "none";
+            } else if (a1.length > 2 || a2.length > 2 || a3.length > 2) {
+                document.getElementById("hint-link").style.display = "block";
             }
         }
 
-        // Start de animatie direct
+        function forceProceed() {
+            document.getElementById("q1").value = "Tyrell Wellick";
+            document.getElementById("q2").value = "Elliot Alderson";
+            document.getElementById("q3").value = "Whiterose";
+            checkAnswers();
+        }
+
         type();
     </script>
 </body>
