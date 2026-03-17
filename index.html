@@ -3,107 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>W3BPIX | Tech & AI</title>
+    <title>W3BPIX | Hello Friend</title>
     <style>
-        body { 
-            background-color: #000;
-            background-image: 
-                radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 40px 40px, 100px 100px;
-            margin: 0; 
-            font-family: sans-serif; 
-            min-height: 200vh;
-            color: #fff;
-            overflow-x: hidden;
-            animation: techMove 100s linear infinite;
+        body {
+            background-color: #0a0a0a;
+            color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-shadow: 0 0 5px #00ff41;
         }
-
-        @keyframes techMove {
-            from { background-position: 0 0, 20px 20px; }
-            to { background-position: 500px 1000px, 200px 400px; }
+        #terminal {
+            width: 90%;
+            max-width: 600px;
+            font-size: 1.2rem;
+            line-height: 1.5;
         }
-
-        header {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 100;
-            pointer-events: none;
+        .links {
+            margin-top: 20px;
+            display: none; /* Verbergt de links tot het typen klaar is */
         }
-
-        .logo-box { display: flex; align-items: center; transition: all 0.7s ease; }
-
-        .badge {
-            background: #fff; color: #000; font-weight: 900;
-            font-size: 45px; padding: 10px 20px; border-radius: 12px;
-            margin-right: 6px; box-shadow: 0 0 25px rgba(255,255,255,0.2);
-            transition: all 0.7s ease;
+        a {
+            color: #00ff41;
+            text-decoration: none;
+            border: 1px solid #00ff41;
+            padding: 8px 15px;
+            margin-right: 10px;
+            display: inline-block;
+            transition: all 0.3s;
         }
-
-        .name { font-weight: 900; font-size: 55px; letter-spacing: -4px; transition: all 0.7s ease; }
-
-        .slogan {
-            margin-top: 20px; font-size: 11px; letter-spacing: 5px; 
-            text-transform: uppercase; opacity: 0.6; transition: all 0.5s ease;
+        a:hover {
+            background-color: #00ff41;
+            color: #0a0a0a;
+            box-shadow: 0 0 15px #00ff41;
         }
-
-        body.scrolled header {
-            height: 80px; justify-content: flex-start; padding-left: 30px;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background-color: #00ff41;
+            animation: blink 1s infinite;
         }
-
-        body.scrolled .logo-box { transform: scale(0.45); transform-origin: left center; }
-        body.scrolled .slogan { opacity: 0; transform: translateY(-20px); }
-
-        .content {
-            padding-top: 110vh; display: flex; flex-direction: column; align-items: center;
-            gap: 25px; width: 100%; padding-bottom: 100px;
-        }
-
-        .btn {
-            display: block; width: 280px; padding: 22px; text-align: center; 
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            color: #fff !important; text-decoration: none; border-radius: 16px; font-weight: 600; 
-            border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.4s ease;
-            pointer-events: auto;
-        }
-
-        .btn:hover { 
-            background: rgba(255, 255, 255, 0.12); 
-            transform: translateY(-5px); 
-            border-color: rgba(255, 255, 255, 0.5); 
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15); 
-        }
-
-        .footer { margin-top: 60px; font-size: 10px; opacity: 0.3; letter-spacing: 3px; }
+        @keyframes blink { 50% { opacity: 0; } }
     </style>
 </head>
-<body id="mainBody">
-    <header>
-        <div class="logo-box">
-            <div class="badge">W3</div>
-            <div class="name">BPIX</div>
-        </div>
-        <div class="slogan">Pixels. Protocols. Progress.</div>
-    </header>
+<body>
 
-    <div class="content">
-        <a href="https://www.linkedin.com/in/rubenkuijsters/" target="_blank" class="btn">LINKEDIN</a>
-        <a href="mailto:w3bpix@gmail.com" class="btn">CONTACT MAIL</a>
-        <div class="footer">W3BPIX — EST. 2026 — AMSTERDAM</div>
+    <div id="terminal">
+        <span id="text"></span><span class="cursor" id="cursor">&nbsp;</span>
+        
+        <div class="links" id="links">
+            <br>
+            <a href="https://www.linkedin.com/in/JOUW-PROFIEL" target="_blank">> LINKEDIN</a>
+            <a href="mailto:ruben@w3bpix.nl">> EMAIL</a>
+        </div>
     </div>
 
     <script>
-        window.onscroll = function() {
-            if (window.pageYOffset > 50) {
-                document.getElementById("mainBody").classList.add("scrolled");
+        const content = "Hello friend.\nWelcome to W3BPIX.\n\nThe revolution is now live.\nEverything for 12 cents.\n\n> Accessing profiles...";
+        let i = 0;
+        const speed = 50;
+
+        function typeWriter() {
+            if (i < content.length) {
+                const char = content.charAt(i);
+                document.getElementById("text").innerText += char;
+                i++;
+                setTimeout(typeWriter, speed);
             } else {
-                document.getElementById("mainBody").classList.remove("scrolled");
+                // Als het typen klaar is: toon de links en stop de cursor
+                document.getElementById("links").style.display = "block";
+                document.getElementById("cursor").style.display = "none";
             }
-        };
+        }
+
+        // Start het effect na een kleine vertraging
+        setTimeout(typeWriter, 1000);
     </script>
 </body>
 </html>
