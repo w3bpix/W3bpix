@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>W3BPIX | Hello Friend</title>
+    <title>W3BPIX | White Rabbit</title>
     <style>
         body {
             background-color: #0a0a0a;
@@ -19,33 +19,37 @@
         }
         #terminal {
             width: 90%;
-            max-width: 600px;
-            font-size: 1.2rem;
-            line-height: 1.5;
+            max-width: 650px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-wrap; /* Zorgt dat de enters ook echt enters zijn */
         }
         .links {
-            margin-top: 20px;
-            display: none; /* Verbergt de links tot het typen klaar is */
+            margin-top: 30px;
+            display: none; 
         }
         a {
             color: #00ff41;
             text-decoration: none;
             border: 1px solid #00ff41;
-            padding: 8px 15px;
-            margin-right: 10px;
+            padding: 10px 20px;
+            margin: 10px 10px 10px 0;
             display: inline-block;
             transition: all 0.3s;
+            font-weight: bold;
         }
         a:hover {
             background-color: #00ff41;
             color: #0a0a0a;
-            box-shadow: 0 0 15px #00ff41;
+            box-shadow: 0 0 20px #00ff41;
         }
         .cursor {
             display: inline-block;
-            width: 10px;
+            width: 12px;
+            height: 1.2rem;
             background-color: #00ff41;
             animation: blink 1s infinite;
+            vertical-align: middle;
         }
         @keyframes blink { 50% { opacity: 0; } }
     </style>
@@ -53,19 +57,18 @@
 <body>
 
     <div id="terminal">
-        <span id="text"></span><span class="cursor" id="cursor">&nbsp;</span>
+        <span id="text"></span><span class="cursor" id="cursor"></span>
         
         <div class="links" id="links">
-            <br>
-            <a href="https://www.linkedin.com/in/JOUW-PROFIEL" target="_blank">> LINKEDIN</a>
-            <a href="mailto:ruben@w3bpix.nl">> EMAIL</a>
+            <a href="https://www.linkedin.com/in/ruben-w3bpix" target="_blank">> LINKEDIN</a>
+            <a href="mailto:ruben@w3bpix.nl">> CONTACT</a>
         </div>
     </div>
 
     <script>
-        const content = "Hello friend.\nWelcome to W3BPIX.\n\nThe revolution is now live.\nEverything for 12 cents.\n\n> Accessing profiles...";
+        const content = "Hello friend.\n\nI'm just a guy who likes the white rabbit and isn't sure he's a human or AI.\n\nYou can contact him for communications or any Web3 activities.\n\nRebel. Verified. \n\n> Accessing encrypted links...";
         let i = 0;
-        const speed = 50;
+        const speed = 45;
 
         function typeWriter() {
             if (i < content.length) {
@@ -74,14 +77,12 @@
                 i++;
                 setTimeout(typeWriter, speed);
             } else {
-                // Als het typen klaar is: toon de links en stop de cursor
                 document.getElementById("links").style.display = "block";
                 document.getElementById("cursor").style.display = "none";
             }
         }
 
-        // Start het effect na een kleine vertraging
-        setTimeout(typeWriter, 1000);
+        setTimeout(typeWriter, 1200);
     </script>
 </body>
 </html>
